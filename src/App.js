@@ -26,7 +26,8 @@ function App() {
 
   // display how many time clicked and how many card 
   const [founded, setFounded] = useState([]);
-
+  // const [clicked, setClicked] = useState(0);
+  
   // shuffle for random img card in game
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
@@ -40,6 +41,7 @@ function App() {
   // prop handleChoice to SingleCard component
   const handleChoice = (card) => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card); // why setChoiceTwo front choiceOne???
+    setTurns(turns => turns + 1)
   }
 
   useEffect(() => { // useEffect for compare card samething, use logic && inreact for compare choiceOne vs choiceTwo
@@ -56,12 +58,12 @@ function App() {
         })
         setFounded(founded => founded + 1)
         resetTurn();
-      } else {
+      } 
+      else {
         setTimeout(() => {
           resetTurn();
         }, 1000);
       }
-      setTurns(turns => turns + 1);
     }
   }, [choiceOne, choiceTwo]) //include choiceOne and choiceTwo for comparing
 
