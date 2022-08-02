@@ -16,7 +16,7 @@
 
 .card-grid-items .front {
     transform: rotateY(90deg);
-    transition: all ease 1s;
+    transition: all ease 0.5s;
     
     position: absolute;
 }

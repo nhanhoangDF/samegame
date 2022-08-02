@@ -27,7 +27,7 @@ function App() {
   // display how many time clicked and how many card 
   const [founded, setFounded] = useState([]);
   // const [clicked, setClicked] = useState(0);
-  
+
   // shuffle for random img card in game
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
@@ -58,7 +58,7 @@ function App() {
         })
         setFounded(founded => founded + 1)
         resetTurn();
-      } 
+      }
       else {
         setTimeout(() => {
           resetTurn();
@@ -67,17 +67,20 @@ function App() {
     }
   }, [choiceOne, choiceTwo]) //include choiceOne and choiceTwo for comparing
 
+
+  useEffect(() => { // dung useEffect de render ra grid card khi restart hoac khi bat game len trong lan dau
+    shuffleCards()
+  }, [])
+
   // reset when choice different card in game
   const resetTurn = () => {
     setChoiceTwo(null)
     setChoiceOne(null)
-    setTurns(prevTurns => prevTurns + 1)
   }
 
   return (
     <div className="App">
       <h1>Memory game by react</h1>
-      <button onClick={shuffleCards}>Reset Game</button>
       <div className="card-grid">
         {cards.map(card => (
           <SingleCard
@@ -87,9 +90,11 @@ function App() {
             flipped={card === choiceOne || card === choiceTwo || card.matched} // conditional render =)
           />
         ))}
-        <p>{turns} clicked</p>
-        <p>{founded}/8 correct</p>
       </div>
+      <p>{turns} clicked</p>
+      <p>{founded}/8 correct</p>
+      <button onClick={shuffleCards}>Reset Game</button>
+
     </div>
   );
 }
